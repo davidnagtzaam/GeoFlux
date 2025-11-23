@@ -1,0 +1,655 @@
+version: '3.9'
+
+services:
+  # Netherlands VPN Container
+  gluetun-nl:
+    image: qmcgaw/gluetun:v3.39.1
+    container_name: gluetun-nl
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${WG_NL_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${WG_NL_ADDRESSES}
+      - SERVER_COUNTRIES=Netherlands
+      - FIREWALL=on
+      - DOT=on
+      - HTTPPROXY=on
+      - HTTPPROXY_LOG=off
+      - HEALTH_VPN_DURATION_INITIAL=30s
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8888"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 45s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+    networks:
+      - vpn-network
+
+  # United States VPN Container
+  gluetun-us:
+    image: qmcgaw/gluetun:v3.39.1
+    container_name: gluetun-us
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${WG_US_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${WG_US_ADDRESSES}
+      - SERVER_COUNTRIES=United States
+      - FIREWALL=on
+      - DOT=on
+      - HTTPPROXY=on
+      - HTTPPROXY_LOG=off
+      - HEALTH_VPN_DURATION_INITIAL=30s
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8888"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 45s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+    networks:
+      - vpn-network
+
+  # Germany VPN Container
+  gluetun-de:
+    image: qmcgaw/gluetun:v3.39.1
+    container_name: gluetun-de
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${WG_DE_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${WG_DE_ADDRESSES}
+      - SERVER_COUNTRIES=Germany
+      - FIREWALL=on
+      - DOT=on
+      - HTTPPROXY=on
+      - HTTPPROXY_LOG=off
+      - HEALTH_VPN_DURATION_INITIAL=30s
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8888"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 45s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+    networks:
+      - vpn-network
+
+  # Norway VPN Container
+  gluetun-no:
+    image: qmcgaw/gluetun:v3.39.1
+    container_name: gluetun-no
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${WG_NO_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${WG_NO_ADDRESSES}
+      - SERVER_COUNTRIES=Norway
+      - FIREWALL=on
+      - DOT=on
+      - HTTPPROXY=on
+      - HTTPPROXY_LOG=off
+      - HEALTH_VPN_DURATION_INITIAL=30s
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8888"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 45s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+    networks:
+      - vpn-network
+
+  # United Kingdom VPN Container
+  gluetun-uk:
+    image: qmcgaw/gluetun:v3.39.1
+    container_name: gluetun-uk
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${WG_UK_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${WG_UK_ADDRESSES}
+      - SERVER_COUNTRIES=United Kingdom
+      - FIREWALL=on
+      - DOT=on
+      - HTTPPROXY=on
+      - HTTPPROXY_LOG=off
+      - HEALTH_VPN_DURATION_INITIAL=30s
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8888"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 45s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+    networks:
+      - vpn-network
+
+  # Estonia VPN Container
+  gluetun-ee:
+    image: qmcgaw/gluetun:v3.39.1
+    container_name: gluetun-ee
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${WG_EE_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${WG_EE_ADDRESSES}
+      - SERVER_COUNTRIES=Estonia
+      - FIREWALL=on
+      - DOT=on
+      - HTTPPROXY=on
+      - HTTPPROXY_LOG=off
+      - HEALTH_VPN_DURATION_INITIAL=30s
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8888"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 45s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+    networks:
+      - vpn-network
+
+  # Latvia VPN Container
+  gluetun-lv:
+    image: qmcgaw/gluetun:v3.39.1
+    container_name: gluetun-lv
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${WG_LV_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${WG_LV_ADDRESSES}
+      - SERVER_COUNTRIES=Latvia
+      - FIREWALL=on
+      - DOT=on
+      - HTTPPROXY=on
+      - HTTPPROXY_LOG=off
+      - HEALTH_VPN_DURATION_INITIAL=30s
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8888"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 45s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+    networks:
+      - vpn-network
+
+  # Sweden VPN Container
+  gluetun-se:
+    image: qmcgaw/gluetun:v3.39.1
+    container_name: gluetun-se
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${WG_SE_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${WG_SE_ADDRESSES}
+      - SERVER_COUNTRIES=Sweden
+      - FIREWALL=on
+      - DOT=on
+      - HTTPPROXY=on
+      - HTTPPROXY_LOG=off
+      - HEALTH_VPN_DURATION_INITIAL=30s
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8888"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 45s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+    networks:
+      - vpn-network
+
+  # Finland VPN Container
+  gluetun-fi:
+    image: qmcgaw/gluetun:v3.39.1
+    container_name: gluetun-fi
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${WG_FI_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${WG_FI_ADDRESSES}
+      - SERVER_COUNTRIES=Finland
+      - FIREWALL=on
+      - DOT=on
+      - HTTPPROXY=on
+      - HTTPPROXY_LOG=off
+      - HEALTH_VPN_DURATION_INITIAL=30s
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8888"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 45s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+    networks:
+      - vpn-network
+
+  # Switzerland VPN Container
+  gluetun-ch:
+    image: qmcgaw/gluetun:v3.39.1
+    container_name: gluetun-ch
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${WG_CH_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${WG_CH_ADDRESSES}
+      - SERVER_COUNTRIES=Switzerland
+      - FIREWALL=on
+      - DOT=on
+      - HTTPPROXY=on
+      - HTTPPROXY_LOG=off
+      - HEALTH_VPN_DURATION_INITIAL=30s
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8888"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 45s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+    networks:
+      - vpn-network
+
+  # France VPN Container
+  gluetun-fr:
+    image: qmcgaw/gluetun:v3.39.1
+    container_name: gluetun-fr
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${WG_FR_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${WG_FR_ADDRESSES}
+      - SERVER_COUNTRIES=France
+      - FIREWALL=on
+      - DOT=on
+      - HTTPPROXY=on
+      - HTTPPROXY_LOG=off
+      - HEALTH_VPN_DURATION_INITIAL=30s
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8888"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 45s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+    networks:
+      - vpn-network
+
+  # Spain VPN Container
+  gluetun-es:
+    image: qmcgaw/gluetun:v3.39.1
+    container_name: gluetun-es
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${WG_ES_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${WG_ES_ADDRESSES}
+      - SERVER_COUNTRIES=Spain
+      - FIREWALL=on
+      - DOT=on
+      - HTTPPROXY=on
+      - HTTPPROXY_LOG=off
+      - HEALTH_VPN_DURATION_INITIAL=30s
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8888"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 45s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+    networks:
+      - vpn-network
+
+  # Italy VPN Container
+  gluetun-it:
+    image: qmcgaw/gluetun:v3.39.1
+    container_name: gluetun-it
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${WG_IT_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${WG_IT_ADDRESSES}
+      - SERVER_COUNTRIES=Italy
+      - FIREWALL=on
+      - DOT=on
+      - HTTPPROXY=on
+      - HTTPPROXY_LOG=off
+      - HEALTH_VPN_DURATION_INITIAL=30s
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8888"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 45s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+    networks:
+      - vpn-network
+
+  # Canada VPN Container
+  gluetun-ca:
+    image: qmcgaw/gluetun:v3.39.1
+    container_name: gluetun-ca
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${WG_CA_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${WG_CA_ADDRESSES}
+      - SERVER_COUNTRIES=Canada
+      - FIREWALL=on
+      - DOT=on
+      - HTTPPROXY=on
+      - HTTPPROXY_LOG=off
+      - HEALTH_VPN_DURATION_INITIAL=30s
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8888"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 45s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+    networks:
+      - vpn-network
+
+  # Australia VPN Container
+  gluetun-au:
+    image: qmcgaw/gluetun:v3.39.1
+    container_name: gluetun-au
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${WG_AU_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${WG_AU_ADDRESSES}
+      - SERVER_COUNTRIES=Australia
+      - FIREWALL=on
+      - DOT=on
+      - HTTPPROXY=on
+      - HTTPPROXY_LOG=off
+      - HEALTH_VPN_DURATION_INITIAL=30s
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8888"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 45s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+    networks:
+      - vpn-network
+
+  # HAProxy Load Balancer and Router
+  haproxy:
+    image: haproxy:3.0-alpine
+    container_name: haproxy
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    ports:
+      - "8888:8888"    # Main proxy endpoint (header-based routing)
+      - "8891:8891"    # Netherlands
+      - "8892:8892"    # United States
+      - "8893:8893"    # Germany
+      - "8894:8894"    # Norway
+      - "8895:8895"    # United Kingdom
+      - "8896:8896"    # Estonia
+      - "8897:8897"    # Latvia
+      - "8898:8898"    # Sweden
+      - "8899:8899"    # Finland
+      - "8900:8900"    # Switzerland
+      - "8901:8901"    # France
+      - "8902:8902"    # Spain
+      - "8903:8903"    # Italy
+      - "8904:8904"    # Canada
+      - "8905:8905"    # Australia
+      - "8404:8404"    # Stats page
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    depends_on:
+      - gluetun-nl
+      - gluetun-us
+      - gluetun-de
+      - gluetun-no
+      - gluetun-uk
+      - gluetun-ee
+      - gluetun-lv
+      - gluetun-se
+      - gluetun-fi
+      - gluetun-ch
+      - gluetun-fr
+      - gluetun-es
+      - gluetun-it
+      - gluetun-ca
+      - gluetun-au
+    restart: unless-stopped
+    networks:
+      - vpn-network
+
+networks:
+  vpn-network:
+    driver: bridge
